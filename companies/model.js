@@ -8,15 +8,16 @@ const Company = sequelize.define('companies', {
       allowNull: false
     },
     foundingYear: {
-        type: Sequelize.STRING,
-        field: 'foundingYear',
+        type: Sequelize.INTEGER, 
+        field: 'founding_year',
+
         allowNull: false
     },
     description: {
         type: Sequelize.STRING,
         field: 'description',
         allowNull: true
-    }
+    },
 },{
     timestamps: false,
     tableName: 'companies'
