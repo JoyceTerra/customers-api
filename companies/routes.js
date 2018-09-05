@@ -5,13 +5,23 @@ const Company = require('./model')
 const router = new Router()
 
 router.get('/companies', (req, res, next) => {
-    Company
-      .findAll()
-      .then(companies => {
-        res.send({ companies })
-      })
-      .catch(error => next(error))
-  })
+  const limit = req.query.limit || 25
+  const offset = req.query.offset || 0
+
+  Company
+    .count()
+    .then(total => {
+      Company
+        .findAll({
+          limit, offset
+        })
+        .then(companies => {
+          res.send({ companies, total })
+        })
+        .catch(error => next(error))
+    })
+    .catch(error => next(error))
+})
 
   router.get('/companies/:id', (req, res, next) => {
     Company
